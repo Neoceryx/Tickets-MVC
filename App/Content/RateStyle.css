@@ -1,0 +1,25 @@
+﻿body {
+}
+.js-rate {
+    margin-top:13px;
+}
+.stars-center {
+    text-align:center;
+    margin-top:100px;
+    margin-bottom:130px;
+}
+
+.image-resize {
+    width:160px;
+    display:block;
+    margin:auto;
+}
+
+.divider {
+    background-color:dimgray;
+    margin-top:10px;
+    height:1px;
+}
+.divider-bottom {
+   margin-bottom:10px;
+}

@@ -1,0 +1,144 @@
+﻿@model App.ViewModels.TicketDetailViewModel
+
+@*Preloader*@
+<link href="~/Content/preloader-css.css" rel="stylesheet" />
+<div class="preloader">
+    <div class="loader">
+        <div class="ball-pulse">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+
+@{
+    var isSortable = ViewBag.User.Name != null ? "" : "sortable";
+    int counter = 0;
+    int evaluatingId = 3;
+    var isHidden = "on-screen-ticket";
+    var lightColor = String.Empty;
+    var darkColor = String.Empty;
+    for (int i = 0; i < Model.StatusTypes.Count; i++)
+    {
+        if (Model.StatusTypes[i].Id == 5)
+        {
+            continue;
+        }
+        switch (Model.StatusTypes[i].Id)
+        {
+            case 1:
+                lightColor = "bg-warning-light";
+                darkColor = "bg-warning";
+                break;
+            case 2:
+                lightColor = "bg-info-light";
+                darkColor = "bg-info";
+                break;
+            case 3:
+                lightColor = "bg-success-light";
+                darkColor = "bg-success";
+                break;
+            case 4:
+                lightColor = "bg-danger";
+                darkColor = "bg-danger-dark";
+                break;
+        }
+        <div class="col col-sm-3">
+            
+            <div class="panel widget @lightColor" data-status-id="@Model.StatusTypes[i].Id" data-status-desc="@Model.StatusTypes[i].Description">
+                <div class="row row-table">
+                    <div class="col-xs-4 text-center @darkColor pv-lg">
+                        <em class="fa fa-ticket fa-3x"></em>
+                    </div>
+                    <div class="col-xs-8 pv-lg">
+                        <div class="h2 mt0 js-ticket-count"></div>
+                        <div class="text-uppercase">@Model.StatusTypes[i].Description</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="@isSortable ticket-container-columns">
+                @if(Model.StatusTypes[i].Id == (evaluatingId + 1) && ViewBag.User.Name ==null)
+                {
+                    evaluatingId = 4;
+                    counter = 0;
+                    isHidden = "on-screen-ticket";
+                }
+                @for (int j = 0; j < Model.Tickets.Count; j++)
+                {
+                    if (@Model.Tickets[j].StatusTypeId == Model.StatusTypes[i].Id)
+                    {
+                        if (Model.Tickets[j].StatusTypeId == evaluatingId && ViewBag.User.Name == null)
+                        {
+                            if (counter >= 5)
+                            {
+                                isHidden = "ticket-hidden";
+                            }
+
+                            counter = counter + 1;
+                        }
+
+                        <!--Start panel-->
+    <div class="panel panel-primary js-clickable-ticket @isHidden" data-id="@Model.Tickets[j].Id" data-rq-id="@Model.Tickets[j].RequestTypeId" data-pt-id="@Model.Tickets[j].PriorityTypeId" data-author="@Model.Tickets[j].UserName">
+        <div class="panel-heading">
+            <div class="js-ticket-tittle">
+                @Model.StatusTypes.FirstOrDefault(status => status.Id == Model.Tickets[j].StatusTypeId).Description
+                @if (@Model.Tickets[j].Rate > 0)
+                {
+                    <span class="pull-right">@Model.Tickets[j].Rate <em class="fa fa-star color-star"></em></span>
+                }
+            </div>
+        </div>
+
+        <div class="panel-body css-sortable-body">
+            <form class="form-horizontal">
+                <div>
+                    <label>No de ticket: #</label>
+                    @Model.Tickets[j].Id.ToString()
+                </div>
+
+                <div>
+                    <label>Tipo de solicitud:</label>
+                    @Model.RequestTypes.FirstOrDefault(request => request.Id == Model.Tickets[j].RequestTypeId).Description
+                </div>
+
+                <div>
+                    <label>Prioridad:</label>
+                    @Model.PriorityTypes.FirstOrDefault(priority => priority.Id == Model.Tickets[j].PriorityTypeId).Description
+                </div>
+                @if (ViewBag.User.Name == null)
+                {
+                    <div>
+                        <label>Usuario:</label>
+                        @Model.Tickets[j].UserName
+                    </div>
+                }
+                <div>
+                    <label>Asunto:</label>
+                    <div class="js-ticket-description truncate">@Html.DisplayFor(model => model.Tickets[j].Description)</div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+                    <!--End panel-->
+
+                    }
+
+                }
+            </div>
+        </div>
+    }
+    <script>
+        dragAndDropModule.startSortable(dragAndDropModule.getFilterEnum().STATUS);
+        dragAndDropModule.init();
+
+        $(window).ready(function () {
+            $(".preloader").fadeOut('slow');
+            $('body').css({ 'overflow': 'visible' });
+        });
+
+    </script>
+}

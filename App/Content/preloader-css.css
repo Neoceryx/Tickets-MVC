@@ -1,0 +1,19 @@
+﻿/*Preloader*/
+.preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: aliceblue;
+        z-index: 100;
+    }
+
+    .loader {
+        /*width:100px;
+        height: 100px;*/
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -50px 0 0 -50px;
+    }

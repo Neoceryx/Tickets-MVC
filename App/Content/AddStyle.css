@@ -1,0 +1,38 @@
+﻿body {
+}
+/*Container*/
+.css-tooltip {
+    position:relative;
+    display:inline;
+    border-bottom:1px dotted black;
+}
+/*tooltip text*/
+    .css-tooltip .js-helper-request {
+        visibility:hidden;
+        width:240px;
+        background-color: black;
+        color: #fff;
+        text-align:center;
+        padding: 5px 0;
+        border-radius: 6px;
+        position:absolute;
+        z-index:1;
+        top:150%;
+        left:50%;
+        margin-left:0px;
+    }
+
+.css-tooltip .js-helper-request::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+.text-area-container:hover .js-helper-request {
+    visibility:visible;
+}

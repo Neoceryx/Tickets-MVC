@@ -1,0 +1,259 @@
+﻿@model App.ViewModels.TicketDetailViewModel
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+
+
+@*Preloader*@
+<link href="~/Content/preloader-css.css" rel="stylesheet" />
+<div class="preloader">
+    <div class="loader">
+        <div class="ball-pulse">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+
+<!--Start Row-->
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <!--Start Panel-->
+        @using (Html.BeginForm("Detail", "Ticket", FormMethod.Post))
+        {
+            <div id="Top" class="panel panel-info">
+                <div class="panel-heading">
+                    <h4>Detalle</h4>
+                </div>
+                <div class="panel-body">
+                    @Html.AntiForgeryToken()
+
+                    @if (Model.Ticket.OwnerId == 0 && Model.Ticket.StatusTypeId == 1 && ViewBag.User.Name == null)
+                    {
+                        <div class="pull-right">
+                            <input class="mb-sm btn btn-green" data-id="@Model.Ticket.Id" type="button" id="TakeTicket" value="Tomar ticket" />
+                        </div>
+                    }
+
+                    <div class="form-horizontal ticket-container">
+                        
+                        @if (Model.Ticket.StatusTypeId == 3 && ViewBag.User.Name != null && Model.Ticket.Rate == 0)
+                        {
+                            <div class="form-group">
+                                <div class="pull-right">
+                                    <label>Calificacion</label>
+                                    <div class="js-rate" data-rate="@Model.Ticket.Rate">
+                                        @Html.DisplayFor(model => model.Ticket.Rate)
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.Ticket.Rate!=0)
+                        {
+                            <div class="form-group">
+                                <div class="pull-right">
+                                    <label>Calificación</label>
+                                    <div class="js-rate-admin" data-rate="@Model.Ticket.Rate">
+                                        @Html.DisplayFor(model => model.Ticket.Rate)
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="form-group">
+
+                            @Html.Label("Ticket #", new { @class = "control-label col-md-3" })
+                            <div class="ticket-id ticket-description-container col-md-9" data-id="@Model.Ticket.Id">
+                                @Html.DisplayFor(model => model.Ticket.Id)
+                            </div>
+
+                        </div>
+
+                        @if (ViewBag.User.Name != null)
+                        {
+                            <div class="form-group">
+                                @Html.Label("Usuario", new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.DisplayFor(model => model.Ticket.UserName)
+                                </div>
+                            </div>
+                        }
+                        @if (ViewBag.User.Name != null)
+                        {
+                            <div class="form-group">
+                                @Html.Label("Estatus", new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    @Html.DisplayFor(model => model.StatusTypes.FirstOrDefault(status => status.Id == model.Ticket.StatusTypeId).Description)
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                @Html.Label("Usuario", new { @class = "control-label col-md-3" })
+                                <div class="col-md-9 user-name">
+                                    @Html.DisplayFor(model => model.Ticket.UserName)
+                                </div>
+                            </div>
+                            if (Model.Ticket.StatusTypeId == 5)
+                            {
+                                <div class="form-group">
+                                    @Html.Label("Estatus", new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.DisplayFor(model => model.StatusTypes.FirstOrDefault(status => status.Id == model.Ticket.StatusTypeId).Description)
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-group">
+                                    @Html.Label("Estatus", new { @class = "control-label col-md-3" })
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(model => model.Ticket.StatusTypeId, Model.StatusTypesDropDown, new { @class = "form-control select", @id="StatusDropdown" })
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                        <div class="form-group">
+                            @Html.Label("Fecha", new { @class = "control-label col-md-3" })
+                            <div class="ticket-description-container col-md-9">
+                                @Html.DisplayFor(model => model.TicketCreatedDate)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Tipo de Solicitud", new { @class = "control-label col-md-3" })
+                            <div class="ticket-description-container col-md-9">
+                                <div class="js-request-id" data-id="@Model.Ticket.RequestTypeId">@Html.DisplayFor(model => model.RequestTypes.FirstOrDefault(request => request.Id == model.Ticket.RequestTypeId).Description)</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Prioridad", new { @class = "control-label col-md-3" })
+                            <div class="ticket-description-container col-md-9">
+                                <div class="js-priority-id" data-id="@Model.Ticket.PriorityTypeId">@Html.DisplayFor(model => model.PriorityTypes.FirstOrDefault(priority => priority.Id == model.Ticket.PriorityTypeId).Description)</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            @Html.Label("Detalle de la solicitud", new { @class = "control-label col-md-3" })
+                            <div class="ticket-description-container ticket-description col-md-9">
+                                @Html.DisplayFor(model => model.Ticket.Description)
+                            </div>
+                        </div>
+                        @if (Model.Image != null)
+                        {
+                            <div class="form-group col-md-12">
+                                @Html.Label("Imagen adjunta", new { @class = "control-label col-md-3" })
+                                <div class="col-md-9">
+                                    <a id="demo01" href="#animatedModal"><img class="ticket-image" src="@Url.Content(Model.Image.Path)" /></a>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.Image != null)
+                        {
+                            <div id="animatedModal" class="animated ">
+                                <div id="closebt-container" class="close-animatedModal close-modal">
+                                    <img class="closebt" src="~/Resources/closebt.svg" />
+                                </div>
+
+                                <div class="modal-content">
+                                    <div class="row">
+                                        <div class="col-sm-2"></div>
+                                        <div class="col-sm-8 ">
+                                            <img class="img-responsive" src="@Url.Content(Model.Image.Path)" />
+                                        </div>
+                                        <div class="col-sm-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+                        <div class="form-group ">
+                            @Html.Label("Comentario", new { @class = "control-label col-md-3" })
+                            <div class="col-md-9 text-area-container">
+                                @Html.TextAreaFor(model => model.TicketComment.Comment, new { @class = "form-control detail-text-area js-comment col-md-9" })
+                                @Html.ValidationMessageFor(model => model.TicketComment.Comment, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-offset-3 col-md-9">
+                            <input class="btn btn-default button" type="button" id="InsertComment" value="Enviar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    <!--End Panel-->
+                    <!-- START Panel-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">Commentaios adicionales</div>
+                        </div>
+                        <!-- START list group-->
+                        <div class="slimScrollDiv" style="position: relative; overflow: scroll; width: auto; height: 180px;">
+                            <div data-height="180" data-scrollable="" class="list-group comentarios">
+                                <!-- START list group item-->
+                                @foreach (var comment in @Model.TicketCommentList)
+                                {
+                                <a href="#" class="list-group-item ">
+                                    <div class="media-box">
+                                        @*Profile Picture
+                                <div class="pull-left">
+                                    <img src="img/user/02.jpg" alt="Image" class="media-box-object img-circle thumb32">
+                                </div>*@
+                                        <div class="media-box-body clearfix">
+                                            <small class="pull-right">@comment.CreatedDate</small>
+                                            <strong class="media-box-heading text-primary">
+                                                <span class="text-left"></span>@comment.UserName
+                                            </strong>
+                                            <p class="mb-sm">
+                                                <small>@comment.Comment</small>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </a>
+                                }
+                                <!-- END list group item-->
+                            </div>
+                        </div>
+                        <!-- END list group-->
+                    </div>
+                    <!-- END Panel-->
+                
+            
+        }
+                   
+     </div>
+ </div>
+
+
+
+
+<div class="link-to-top">
+    @*<a href="#Top">Ir arriba</a>*@
+    <a href="#Top" id="bottom">Ir arriba</a>
+</div>
+
+
+@{
+    var userName = ViewBag.User.Name != null ? string.Format("{0} {1} ", ViewBag.User.Name, ViewBag.User.LastNames) : "Admin";
+}
+
+<!--End Row-->
+@section scripts{
+    <script src="~/Scripts/jquery-2.2.1.min.js"></script>
+    <script src="~/Scripts/detailViewScript.js"></script>
+    <script src="~/Scripts/animatedModal.min.js"></script>
+
+    <script>
+        detailModule.setStatusUrl('@Url.Action("Update")');
+        detailModule.setCommentUrl('@Url.Action("Comment")');
+        detailModule.setRateUrl('@Url.Action("UpdateRate")');
+        detailModule.setOwnerUrl('@Url.Action("UpdateOwner")');
+        detailModule.setUserName('@userName');
+        $("#demo01").animatedModal();
+    </script>
+}

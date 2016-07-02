@@ -1,0 +1,64 @@
+﻿@model App.ViewModels.TicketDetailViewModel
+
+@*Preloader*@
+<link href="~/Content/preloader-css.css" rel="stylesheet" />
+<div class="preloader">
+    <div class="loader">
+        <div class="ball-pulse">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+
+@{
+    ViewBag.Title = "All";
+}
+@if (ViewBag.User.Name == null)
+{
+    @*<div class="pull-right">
+        <label>
+            Buscar
+        </label>
+        <div><input type="text" class="form-control search " placeholder="Usuario" /></div>
+    </div>*@
+
+    @*<div class="pull-right">
+            Buscar
+            <input type="text" class="search input-sm" placeholder="usuario" />
+    </div>*@
+
+    <div class="form-inline pull-right">
+        <div class="form-group">
+            <label>Buscar </label>
+            <input type="text" class="search form-control" placeholder="Usuario">
+        </div>
+    </div>
+
+
+}
+<br /> <br />
+<div>
+    <ul class="nav nav-tabs ">
+        <li role="presentation" class="active">@Ajax.ActionLink("Estatus", "StatusFilter", new AjaxOptions { UpdateTargetId = "result", InsertionMode = InsertionMode.Replace })</li>
+        <li role="presentation">@Ajax.ActionLink("Prioridad", "PriorityFilter", new AjaxOptions { UpdateTargetId = "result", InsertionMode = InsertionMode.Replace })</li>
+        <li role="presentation">@Ajax.ActionLink("Solicitud", "RequestFilter", new AjaxOptions { UpdateTargetId = "result", InsertionMode = InsertionMode.Replace })</li>
+        <li role="presentation"></li>
+    </ul>
+</div>
+
+<br />
+
+<!--Load partial views-->   
+<div id="result">@{Html.RenderPartial("~/Views/Ticket/Partial/_StatusFilter.cshtml", Model);}</div>
+
+@section scripts{ 
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/allViewScript.js"></script>
+    <script>
+        dragAndDropModule.setUpdateTicketsUrl('@Url.Action("Update")');
+        dragAndDropModule.init();
+    </script>
+}

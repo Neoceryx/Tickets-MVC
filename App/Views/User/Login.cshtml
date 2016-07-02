@@ -1,0 +1,52 @@
+﻿
+@model App.ViewModels.LogInViewModel
+
+@*Preloader*@
+<link href="~/Content/preloader-css.css" rel="stylesheet" />
+<div class="preloader">
+    <div class="loader">
+        <div class="ball-pulse">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+    <div class="block-center mt-xl wd-xl">
+        <!-- START panel-->
+        <div class="panel panel-primary panel-flat">
+            <div class="panel-heading text-center">
+                <img src="~/Resources/mindLogo.png" alt="Image" class="image-center" />
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Login", "User", FormMethod.Post))
+                {
+                    <p class="text-center pv">INICIE SESIÓN PARA CONTINUAR.</p>
+                    <form role="form" data-parsley-validate="" novalidate="" class="mb-lg">
+                        <div class="form-group has-feedback login-container">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @type = "email", @placeholder = "Ingrese correo", @required = "required", @class = "form-control" } })
+                            <span class="fa fa-envelope form-control-feedback text-muted login-icons"></span>
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group has-feedback login-container">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @type = "password", @placeholder = "Contraseña", @required = "required", @class = "form-control" } })
+                            <span class="fa fa-lock form-control-feedback text-muted login-icons"></span>
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            @Html.ValidationMessage("Error")
+                        </div>
+                        @Html.EditorFor(model => model.IsAdmin) Soy admin
+
+
+                        <button type="submit" id="login" class="btn btn-block btn-primary mt-lg js-login-button">Login</button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script src="~/Scripts/jquery-2.2.1.min.js"></script>
+<script src="~/Scripts/loginViewScript.js"></script>

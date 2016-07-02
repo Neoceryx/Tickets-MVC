@@ -1,0 +1,115 @@
+﻿@model App.ViewModels.AddNewTicketViewModel
+
+@{
+    ViewBag.Title = "Add";
+}
+
+
+@*Preloader*@
+<link href="~/Content/preloader-css.css" rel="stylesheet" />
+<link href="~/Content/AddStyle.css" rel="stylesheet" />
+<div class="preloader">
+    <div class="loader">
+        <div class="ball-pulse">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+
+<br /><br /> <br />
+<!--Start Row-->
+<div class="row">
+    <div class="col-sm-3"></div>
+    
+    <!--start Content-->
+    <div class=" col-sm-6">
+        <!--start Panel-->
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+            <h4>Ticket Nuevo</h4>
+            </div> 
+
+            <div class="panel-body">
+                @using (Html.BeginForm("Add", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data"}))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.Label("Tipo de Solicitud", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.RequestType, Model.RequestTypeDropDown, new { @class = "form-control select js-select-request" })
+                                @Html.ValidationMessageFor(model => model.RequestType, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            @Html.Label("Prioridad", new { @class = "control-label col-md-2 priority-header-label" })
+                            <div class="col-md-6">
+                                @{
+                                <div class="priorities-radios">
+                                    @foreach (var priority in Model.PriorityTypes)
+                                    {
+                                        @Html.RadioButtonFor(model => model.Priority, priority.Id, new { @class = "js-radio", id = "rbPriority" + priority.Id })
+                                        @Html.Label(priority.Description, new { @class = "priority-type-label" })
+                                        
+                                    }
+                                    <p id="Js-days"></p>
+                                </div>
+                                <div class="priority-error-message">
+
+                                    @Html.ValidationMessageFor(model => model.Priority, "", new { @id = "js-priority-type-error", @class = "text-danger" })
+                                </div>
+                                }
+                            </div> 
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Descripción", new { @class = "control-label col-md-2" })
+                            <div class="col-md-10 text-area-container">
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control js-ticket-description", @placeholder="Descripción" })
+                                <div class="css-tooltip">
+                                    <span class="js-helper-request"></span>
+                                </div>
+                                <div class="">@Html.ValidationMessageFor(model => model.Description, "", new { @id = "js-description-error", @class = "text-danger" })</div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="file" name="fileUpload" id="fileUpload" size="23" accept=".png, .gif, .jpg" />
+                                <div id="js-file-error" class = "text-danger file-error-message">@Html.ValidationMessage("File")</div>
+                                <input id="js-submit-ticket" type="button" value="Crear" class="btn btn-default col-lg-offset-4 " onclick="return;" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+        <!--End panel-->
+    </div>
+    <!--End Content-->
+
+    <div class="col-sm-3"></div>
+    
+</div>
+<!--End Row-->
+
+
+<div>
+    @Html.ActionLink("Regresar a los tickets", "All")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script src="~/Scripts/jquery-2.2.1.min.js"></script>
+<script src="~/Scripts/addViewScript.js"></script>
+<script>
+    addModule.setSolutionUrl('@Url.Action("GetSolutionDays")');
+    addModule.setHelperUrl('@Url.Action("GetHelper")');
+    addModule.init();
+</script>

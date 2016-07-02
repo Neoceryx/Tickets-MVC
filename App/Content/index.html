@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<!--Colores: darkred, firebrick,crimson,skyblue-->
+<body style="background-color:darkred;">
+
+    <div class="card" style="width:auto;">
+
+        <div class="head" style="text-align:center">
+            <img style="padding-top:3%;height:50px;width:250px;" src="http://agilbc.mx/wp-content/uploads/2015/10/logos-02.png" />
+            <h2 style="color:whitesmoke; font-family:Segoe UI;">{TicketStatus}</h2>
+        </div>
+        <!-- start Body -->
+        <div class="body" style="font-family:Century Gothic;font-size:130%;background-color:white; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+            <div style="text-align:center"><b>Fecha de creación:</b> <span>{TicketCreatedDate}</span></div>
+            <div style="text-align:center; padding-top:1%"><b>Ticket #</b> <span>{TicketId}</span></div>
+
+            <!-- start Left column -->
+            <div class="left" style="float:left; width:50%; text-align:center; padding-top:2%">
+
+                <div><b>Nombre:</b> <span>{TicketOwner}</span></div>
+            </div>
+            <!-- End Left Column -->
+            <!-- Start Right Column -->
+            <div class="right" style="float:right; width:50%; text-align:center;padding-top:2%;">
+                <div><b>Solicitud:</b> <span>{TicketRequestType}</span></div>
+            </div>
+            <!-- End right column -->
+
+            <div class="" style="text-align:center;padding-top:10%;padding-bottom:%">
+                <div style="text-align:center;padding-top:4%"><br /><p><b>Descripción:</b> <span>{TicketBody}</span></p> </div>
+                <div style="padding-top:3%; padding-bottom:3%;text-align:center;font-family:Segoe UI;background-color:darkred;color:white;">
+                    {FinishedMessage}
+
+                </div>
+            </div>
+            <!--
+            <div class="footer" style="padding-top:3%;padding-bottom:3%; text-align:center; background-color:">
+              Copyright (c) 2016 Copyright Holder All Rights Reserved.
+            </div> -->
+        </div>
+        <!-- End Body -->
+
+
+
+    </div>
+
+</body>
+</html>

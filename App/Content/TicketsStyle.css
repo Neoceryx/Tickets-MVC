@@ -1,0 +1,290 @@
+﻿/*nav styles*/
+.main-nav {
+    width: 100%;
+}
+
+    .main-nav li:first-child {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 5px;
+    }
+
+    .main-nav li.nav-option:hover,
+    .main-nav li.nav-option a:hover {
+        background-color: #117391 !important;
+        color: aliceblue !important;
+    }
+/*----------*/
+.color-star {
+    color: gold;
+}
+/*tooltip*/
+
+.ui-tooltip, .arrow:after {
+    background-color: black;
+}
+
+.ui-tooltip {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    font: 14px Source Sans Pro, sans-serif;
+    white-space: pre-line;
+    /*text-transform: uppercase;*/
+    box-shadow: 0 0 7px black;
+    width: 350px;
+}
+
+.arrow {
+    width: 70px;
+    height: 16px;
+    overflow: hidden;
+    position: absolute;
+    left: 50%;
+    margin-left: -35px;
+    bottom: -16px;
+}
+
+    .arrow.top {
+        top: -16px;
+        bottom: auto;
+    }
+
+    .arrow.left {
+        left: 20%;
+    }
+
+    .arrow:after {
+        content: "";
+        position: absolute;
+        left: 20px;
+        top: -20px;
+        width: 25px;
+        height: 25px;
+        box-shadow: 6px 5px 9px -9px black;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .arrow.top:after {
+        bottom: -20px;
+        top: auto;
+    }
+/*-------*/
+.user-name {
+    margin-top: 6px;
+}
+
+.priorities-radios {
+    height: 30px;
+    width: 400px;
+}
+
+.body-content {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-top: 25px;
+}
+
+.label-align {
+    margin-top: 100px;
+}
+
+.modal-image-resize {
+    width: 500px !important;
+    height: 600px !important;
+}
+
+.priority-container {
+    width: 90px;
+    float: left;
+}
+
+.priority-type-label {
+    margin-right: 30px;
+    vertical-align: top;
+}
+
+.priority-header-label {
+    vertical-align: text-top;
+    margin: 0;
+    padding-top: 0 !important;
+}
+
+.select {
+    width: 200px;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.text-area-container {
+    height: 80px;
+}
+
+.text-error {
+    display: inline-block;
+}
+
+.ticket-container-columns {
+    min-height: 100vh;
+}
+
+.truncate {
+    width: 100%;
+    margin-right: 0px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.truncate-table {
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ticket-description-container {
+    margin-left: 0;
+    margin-bottom: 0;
+    margin-top: 7px;
+    -ms-word-break: break-word;
+    word-break: break-word;
+}
+
+.ticket-container {
+    margin-top: 30px;
+    width: 100%;
+    position: relative;
+}
+
+.welcome-tag {
+    float: right;
+    margin-top: 5px;
+    margin-right: 15px;
+}
+
+.error-message {
+    width: 200px;
+    height: 30px;
+}
+
+.checkbox-align {
+    margin-top: 7.5px;
+}
+
+.login-input-container {
+    margin-bottom: 0 !important;
+}
+
+/*.days-label {
+    width: 500px;
+    margin-top: 1px;
+}*/
+
+.radio-container {
+    display: inline-block;
+}
+
+.sortable {
+    cursor: move;
+}
+
+.css-sortable-body {
+    cursor: pointer;
+}
+
+.text-area {
+    width: 45% !important;
+}
+
+.jq-ry-container {
+    display: inline-block !important;
+}
+
+.ticket-image {
+    /*position: absolute;
+    top: 10px;
+    left: 50%;*/
+    height: 75px;
+}
+
+.modal-image {
+    margin-top: 50px;
+}
+
+.file-error-message {
+    height: 30px;
+    width: 250px;
+    display: inline-block;
+}
+
+.priority-error-message {
+    margin-top: -16px;
+    display: inline-block;
+}
+
+.active2 {
+    background-color: #117391 !important;
+}
+
+    .active2 a:hover {
+        color: aliceblue !important;
+    }
+
+.ticket-hidden {
+    display: none;
+}
+
+.login-container {
+    width: 290px;
+    height: 56px;
+    margin-bottom: 7px !important;
+}
+
+.login-icons {
+    margin-top: 10px !important;
+}
+
+.close-modal {
+    margin-bottom: 10px !important;
+    margin-top: 10px !important;
+}
+
+.detail-text-area {
+    resize: none;
+}
+.image-center {
+    margin-left:-25px;
+}
+/*.wrap {
+     margin: 0 auto;
+     padding: 0;
+     overflow: auto;
+}
+
+.left-column {
+     width: 350px;
+     padding: 0;
+     margin: 0!;
+     display: block;
+}
+
+.right-column {
+     width: 100px;
+     display: block;
+     float: left;
+}*/
+
+tr {
+    cursor: pointer;
+}
+
+/* overwrite tooltip style */
+.ui-helper-hidden-accessible {
+    display: none !important;
+}

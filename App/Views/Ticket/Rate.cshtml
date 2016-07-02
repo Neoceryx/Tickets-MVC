@@ -1,0 +1,25 @@
+﻿
+
+<div class="center">
+    <img src="~/Resources/mindLogo.png" class="image-resize" />
+</div>
+<div class="divider"></div>
+<div class="form-group stars-center js-ticket" data-id="@Model">
+    <h1>Tu opinión sobre el servicio es muy importante!</h1>
+    <div class="js-rate"></div>
+</div>
+<div class="divider divider-bottom"></div>
+<div>
+    <ul class="list-inline text-center text-sm mb-xl">
+        <li>
+            <a href="@Url.Action("All", "Ticket")" class="text-muted">Regresar a los tickets</a>
+        </li>
+    </ul>
+</div>
+
+    <script src="~/Scripts/jquery-2.2.1.min.js"></script>
+    <script src="~/Scripts/jquery.rateyo.min.js"></script>
+<script src="~/Scripts/rateScriptView.js"></script>
+    <script>
+        rateModule.setRateUrl('@Url.Action("UpdateRate")');
+    </script>
